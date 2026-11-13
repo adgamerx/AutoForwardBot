@@ -20,3 +20,6 @@ Thumbs.db
 
 # Env
 .env
+
+# Local dev check harness (not part of the bot)
+.checks/
