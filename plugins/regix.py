@@ -127,7 +127,9 @@ async def run_forwarding(bot, user, frwd_id, m, sts, resume=False):
             return
 
         source_chat = sts.get('FROM')
-        start_id = int(sts.get('skip') or 0) + 1
+        # start_id comes from STS.store which resolves the skip/latest-N range.
+        # The fallback keeps jobs queued before this change resumable.
+        start_id = int(sts.get('start_id') or (int(sts.get('skip') or 0) + 1))
         end_id = int(sts.get('limit') or 0)
         batch_size = 100
 

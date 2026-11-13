@@ -34,11 +34,20 @@ class STS:
             'state': values
         })
     
-    def store(self, From, to, skip, limit, account_id=None):
+    def store(self, From, to, skip, limit, account_id=None, count=0):
         skip = max(0, int(skip))
         limit = max(skip, int(limit))
-        self.data[self.id] = {"FROM": From, 'TO': to, 'total_files': 0, 'skip': skip, 'limit': limit,
-                      'fetched': 0, 'filtered': 0, 'deleted': 0, 'duplicate': 0, 'total': max(0, limit - skip), 'start': 0, 'account_id': account_id}
+        count = max(0, int(count or 0))
+        # skip removes the oldest messages, count keeps only the newest ones.
+        # Both options can be combined, so the effective range starts at the
+        # later of the two lower bounds.
+        start_id = skip + 1
+        if count:
+            start_id = max(start_id, limit - count + 1)
+        self.data[self.id] = {"FROM": From, 'TO': to, 'total_files': 0, 'skip': skip, 'count': count,
+                      'start_id': start_id, 'limit': limit, 'fetched': 0, 'filtered': 0,
+                      'deleted': 0, 'duplicate': 0, 'total': max(0, limit - start_id + 1),
+                      'start': 0, 'account_id': account_id}
         self.get(full=True)
         return STS(self.id)
         

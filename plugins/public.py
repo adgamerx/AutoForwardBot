@@ -115,15 +115,26 @@ async def run(bot, message):
     if skip_number > int(last_msg_id):
         await message.reply_text("<b>Skip number cannot be greater than the last message number.</b>")
         return
-    forward_id = f"{user_id}-{skipno.id}"
+    count_msg = await bot.ask(message.chat.id, Translation.COUNT_MSG)
+    if count_msg.text and count_msg.text.startswith('/'):
+        await message.reply(Translation.CANCEL)
+        return
+    try:
+        latest_count = int(count_msg.text.strip())
+        if latest_count < 0:
+            raise ValueError
+    except (TypeError, ValueError, AttributeError):
+        await message.reply_text("<b>Please enter a valid non-negative number.</b>")
+        return
+    forward_id = f"{user_id}-{count_msg.id}"
     buttons = [[
         InlineKeyboardButton('Yes', callback_data=f"start_public_{forward_id}"),
         InlineKeyboardButton('No', callback_data="close_btn")
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await message.reply_text(
-        text=Translation.DOUBLE_CHECK.format(botname=_bot['name'], botuname=_bot['username'], from_chat=title, to_chat=to_title, skip=skip_number),
+        text=Translation.DOUBLE_CHECK.format(botname=_bot['name'], botuname=_bot['username'], from_chat=title, to_chat=to_title, skip=skip_number, count=latest_count if latest_count else "all"),
         disable_web_page_preview=True,
         reply_markup=reply_markup
     )
-    STS(forward_id).store(chat_id, toid, skip_number, int(last_msg_id), account_id=account_id)
+    STS(forward_id).store(chat_id, toid, skip_number, int(last_msg_id), account_id=account_id, count=latest_count)

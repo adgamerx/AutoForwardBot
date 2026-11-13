@@ -29,6 +29,7 @@ messages in bulk or let it auto forward every new post the moment it is publishe
  
  - Custom Forward Tags.
  - Skip Specific Messages.
+ - Forward Only The Latest N Messages.
  - Cancel Running Forward Tasks.
  - Protected Message Support.
  - Userbot/Pyrogram Session Support.

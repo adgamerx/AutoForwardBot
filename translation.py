@@ -126,6 +126,7 @@ class Translation(object):
 <b>★ FROM CHANNEL:</b> `{from_chat}`
 <b>★ TO CHANNEL:</b> `{to_chat}`
 <b>★ SKIP MESSAGES:</b> `{skip}`
+<b>★ LATEST MESSAGES:</b> `{count}`
 
 <i>° [{botname}](t.me/{botuname}) must be admin in **TARGET CHAT**</i> (`{to_chat}`)
 <i>° If the **SOURCE CHAT** is private your userbot must be member or your bot must be admin in there also</b></i>
