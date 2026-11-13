@@ -1,6 +1,5 @@
-import re
 import asyncio 
-from .utils import STS
+from .utils import STS, parse_chat_link, parse_forwarded_post
 from database import db
 from config import temp 
 from translation import Translation
@@ -75,19 +74,15 @@ async def run(bot, message):
         await message.reply(Translation.CANCEL)
         return 
     if fromid.text and not fromid.forward_date:
-        regex = re.compile(r"(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")
-        match = regex.match(fromid.text.replace("?single", ""))
-        if not match:
+        parsed = parse_chat_link(fromid.text)
+        if not parsed:
             return await message.reply('Invalid link')
-        chat_id = match.group(4)
-        last_msg_id = int(match.group(5))
-        if chat_id.isnumeric():
-            chat_id  = int(("-100" + chat_id))
-    elif fromid.forward_from_chat.type in [enums.ChatType.CHANNEL]:
-        last_msg_id = fromid.forward_from_message_id
-        chat_id = fromid.forward_from_chat.username or fromid.forward_from_chat.id
-        if last_msg_id == None:
-           return await message.reply_text("**This may be a forwarded message from a group and sended by anonymous admin. instead of this please send last message link from group**")
+        chat_id, last_msg_id = parsed
+    elif getattr(fromid, 'forward_from_chat', None) and fromid.forward_from_chat.type in [enums.ChatType.CHANNEL]:
+        parsed = parse_forwarded_post(fromid)
+        if not parsed:
+            return await message.reply_text("**This may be a forwarded message from a group and sended by anonymous admin. instead of this please send last message link from group**")
+        chat_id, last_msg_id = parsed
     else:
         await message.reply_text("**invalid !**")
         return 

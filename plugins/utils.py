@@ -1,9 +1,42 @@
 # Developed by ADx
+import re
 import time as tm
+from typing import Optional, Tuple, Union
 from database import db 
+from pyrogram import enums
 from .test import parse_buttons
 
 STATUS = {}
+
+# Supports t.me/name/123, t.me/c/1234567890/123 and the same links with a
+# ?single query suffix.
+CHAT_LINK_REGEX = re.compile(
+    r"(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$"
+)
+
+
+def parse_chat_link(text) -> Optional[Tuple[Union[int, str], int]]:
+    """Return (chat, message_id) for a Telegram message link, else None."""
+    if not text:
+        return None
+    match = CHAT_LINK_REGEX.match(str(text).strip().replace("?single", ""))
+    if not match:
+        return None
+    chat = match.group(4)
+    if chat.isnumeric():
+        chat = int("-100" + chat)
+    return chat, int(match.group(5))
+
+
+def parse_forwarded_post(message) -> Optional[Tuple[Union[int, str], int]]:
+    """Return (chat, last_message_id) when message is a forwarded channel post."""
+    chat = getattr(message, 'forward_from_chat', None)
+    if not chat or chat.type != enums.ChatType.CHANNEL:
+        return None
+    last_id = getattr(message, 'forward_from_message_id', None)
+    if not last_id:
+        return None
+    return (chat.username or chat.id), int(last_id)
 
 class STS:
     def __init__(self, id):
