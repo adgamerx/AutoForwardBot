@@ -27,7 +27,7 @@ class Translation(object):
 <b>► __Forward message from public channel to your channel without admin permission. if the channel is private need admin permission__
 ► __Forward message from private channel to your channel by using userbot(user must be member in there)__
 ► __Forward the last N messages, only new posts or the whole channel__
-► __Auto forward: every new post in the source channel is forwarded instantly__
+► __Auto forward: every new post in the source channel is forwarded automatically__
 ► __custom caption__
 ► __custom button__
 ► __support restricted chats__
