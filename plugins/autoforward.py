@@ -296,11 +296,31 @@ class AutoForwarder:
         return messages
 
     async def _latest_id(self, client, chat):
-        messages = await self._get_messages(client, chat, 1)
-        message = messages[0] if messages else None
+        """Id of the newest message in the source chat.
+
+        get_chat_history always yields newest first and exists in every
+        Pyrogram generation; get_messages(chat, 1) would mean "message id 1".
+        """
+        try:
+            message = await self._first_history_message(client, chat)
+        except Exception:
+            # Some client versions only expose history through get_messages.
+            messages = await self._get_messages(client, chat, None)
+            message = messages[0] if messages else None
         if is_skippable(message):
             return 0
         return int(message.id)
+
+    async def _first_history_message(self, client, chat):
+        history = client.get_chat_history(chat, limit=1)
+        if hasattr(history, '__aiter__'):
+            async for message in history:
+                return message
+            return None
+        result = await history
+        if isinstance(result, (list, tuple)):
+            return result[0] if result else None
+        return result
 
 
 forwarder = AutoForwarder()
