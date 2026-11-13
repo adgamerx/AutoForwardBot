@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <img alt="Python" src="https://img.shields.io/badge/python-3.8%2B-3776AB?logo=python&logoColor=white">
+  <img alt="Python" src="https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white">
   <img alt="Pyrogram" src="https://img.shields.io/badge/library-pyrofork-2CA5E0">
   <img alt="MongoDB" src="https://img.shields.io/badge/database-MongoDB-47A248?logo=mongodb&logoColor=white">
   <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-blue">
@@ -112,7 +112,7 @@ channel. For a private source channel it must also be a member of that channel.
 
 ## Requirements
 
-- Python **3.8+**
+- Python **3.10+** (the Docker image uses 3.11)
 - A **MongoDB** database (Atlas free tier works)
 - Telegram **API_ID** and **API_HASH**
 - A bot token from **@BotFather**
@@ -277,6 +277,12 @@ docker build -t adx-auto-forward .
 docker run -d --name adx-forward --env-file .env --restart unless-stopped adx-auto-forward
 ```
 
+Or with the included compose file:
+
+```bash
+docker compose up -d --build
+```
+
 `start.sh` clones this repository inside the container; if you want the image to
 run the local checkout instead, override the command:
 
@@ -320,7 +326,7 @@ ADx-AutoForward-Bot/
 ├── app.py             # Flask keep-alive endpoint
 ├── logging.conf       # console + file logging setup
 ├── requirements.txt
-├── Dockerfile / Procfile / heroku.yml / app.json / start.sh
+├── Dockerfile / docker-compose.yml / Procfile / heroku.yml / app.json / start.sh
 └── plugins/
     ├── commands.py     # /start, /restart, help, about, status
     ├── settings.py     # /settings menus

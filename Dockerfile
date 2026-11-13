@@ -1,12 +1,17 @@
-FROM python:3.8-slim-buster
+FROM python:3.11-slim
 
-RUN apt update && apt upgrade -y
-RUN apt install git -y
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends git \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY requirements.txt /requirements.txt
+RUN pip3 install --no-cache-dir -U pip \
+    && pip3 install --no-cache-dir -U -r requirements.txt
 
-RUN cd /
-RUN pip3 install -U pip && pip3 install -U -r requirements.txt
-RUN mkdir /fwdbot
+RUN mkdir -p /fwdbot
 WORKDIR /fwdbot
 COPY start.sh /start.sh
-CMD ["/bin/bash", "/start.sh"] 
+CMD ["/bin/bash", "/start.sh"]
