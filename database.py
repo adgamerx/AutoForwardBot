@@ -1,8 +1,9 @@
 # Developed by ADx
 from os import environ 
+import time
 from config import Config
 import motor.motor_asyncio
-from pymongo import MongoClient
+from pymongo import MongoClient, ReturnDocument
 
 async def mongodb_version():
     x = MongoClient(Config.DATABASE_URI)
@@ -18,6 +19,8 @@ class Database:
         self.col = self.db.users
         self.nfy = self.db.notify
         self.chl = self.db.channels 
+        self.af = self.db.autoforward
+        self.counter = self.db.counters
         
     def new_user(self, id, name):
         return dict(
@@ -217,5 +220,69 @@ class Database:
 
     async def get_all_frwd(self):
        return self.nfy.find({})
-     
+
+    # ------------------------------------------------------------------ #
+    # Auto forward rules
+    # ------------------------------------------------------------------ #
+    async def next_id(self, name):
+       doc = await self.counter.find_one_and_update(
+           {'_id': str(name)},
+           {'$inc': {'value': 1}},
+           upsert=True,
+           return_document=ReturnDocument.AFTER
+       )
+       return int(doc['value'])
+
+    async def add_autoforward(self, data):
+       data = dict(data)
+       data['id'] = await self.next_id('autoforward')
+       data.setdefault('status', 'active')
+       data.setdefault('created_at', time.time())
+       data.setdefault('forwarded', 0)
+       data.setdefault('filtered', 0)
+       data.setdefault('failed', 0)
+       await self.af.insert_one(dict(data))
+       return await self.get_autoforward(data['id'])
+
+    async def get_autoforward(self, af_id):
+       return await self.af.find_one({'id': int(af_id)})
+
+    async def get_user_autoforwards(self, user_id):
+       cursor = self.af.find({'user_id': int(user_id)}).sort('id', 1)
+       return [rule async for rule in cursor]
+
+    async def get_active_autoforwards(self):
+       return self.af.find({'status': 'active'})
+
+    async def get_all_autoforwards(self):
+       return self.af.find({})
+
+    async def update_autoforward(self, af_id, state):
+       return await self.af.update_one({'id': int(af_id)}, {'$set': state})
+
+    async def count_autoforwards(self, user_id=None, status=None):
+       query = {}
+       if user_id is not None:
+          query['user_id'] = int(user_id)
+       if status:
+          query['status'] = status
+       return await self.af.count_documents(query)
+
+    async def increment_autoforward(self, af_id, counters=None, state=None):
+       update = {}
+       increments = {k: int(v) for k, v in (counters or {}).items() if v}
+       if increments:
+          update['$inc'] = increments
+       if state:
+          update['$set'] = state
+       if not update:
+          return None
+       return await self.af.update_one({'id': int(af_id)}, update)
+
+    async def remove_autoforward(self, af_id, user_id=None):
+       query = {'id': int(af_id)}
+       if user_id is not None:
+          query['user_id'] = int(user_id)
+       return await self.af.delete_one(query)
+       
 db = Database(Config.DATABASE_URI, Config.DATABASE_NAME)
