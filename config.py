@@ -32,7 +32,7 @@ class Config:
     DEVELOPER_NAME = environ.get("DEVELOPER_NAME", "ADx")
     UPDATES_CHANNEL = environ.get("UPDATES_CHANNEL", "https://t.me/ADxUpdates")
     SUPPORT_GROUP = environ.get("SUPPORT_GROUP", "https://t.me/ADxSupport")
-    REPO_URL = environ.get("REPO_URL", "https://github.com/ADx/ADx-AutoForward-Bot")
+    REPO_URL = environ.get("REPO_URL", "https://github.com/adgamerx/ADx-AutoForward-Bot")
     VERSION = environ.get("BOT_VERSION", "V-3.0.0")
 
     # Auto forward watcher

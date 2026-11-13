@@ -1,13 +1,13 @@
 echo "Cloning Repo...."
-if [ -z $BRANCH ]
+if [ -z "$BRANCH" ]
 then
   echo "Cloning main branch...."
-  git clone https://github.com/ADx/ADx-AutoForward-Bot ADx/ADx-AutoForward-Bot
+  git clone https://github.com/adgamerx/ADx-AutoForward-Bot adgamerx/ADx-AutoForward-Bot
 else
   echo "Cloning $BRANCH branch...."
-  git clone https://github.com/ADx/ADx-AutoForward-Bot -b $BRANCH /ADx-AutoForward-Bot
+  git clone -b "$BRANCH" https://github.com/adgamerx/ADx-AutoForward-Bot adgamerx/ADx-AutoForward-Bot
 fi
-cd ADx/ADx-AutoForward-Bot
+cd adgamerx/ADx-AutoForward-Bot
 pip3 install -U -r requirements.txt
 echo "Starting Bot...."
 gunicorn app:app & python3 main.py

@@ -12,8 +12,8 @@
     "bot"
   ],
   "success_url": "https://t.me/ADxUpdates",
-  "website": "https://github.com/ADx/ADx-AutoForward-Bot",
-  "repository": "https://github.com/ADx/ADx-AutoForward-Bot",
+  "website": "https://github.com/adgamerx/ADx-AutoForward-Bot",
+  "repository": "https://github.com/adgamerx/ADx-AutoForward-Bot",
   "env": {
     "API_ID": {
       "description": "Get this value from https://my.telegram.org or @UseTGSBot",

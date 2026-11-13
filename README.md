@@ -255,7 +255,7 @@ for a working deployment; everything else has a sensible default.
 sudo apt update
 sudo apt install -y git python3 python3-pip python3-venv
 
-git clone https://github.com/ADx/ADx-AutoForward-Bot.git
+git clone https://github.com/adgamerx/ADx-AutoForward-Bot.git
 cd ADx-AutoForward-Bot
 
 python3 -m venv venv
