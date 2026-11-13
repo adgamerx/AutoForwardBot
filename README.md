@@ -9,6 +9,8 @@ A Telegram bot that keeps one channel mirrored into another. Forward existing
 messages in bulk or let it auto forward every new post the moment it is published.
 
 # FEATURES
+ - **Auto Forward** - every new post is forwarded to your channel automatically.
+ - Forward Only The Latest N Messages.
  - Forward Messages From Public & Private Channels.
  - Supports Broadcasts.
  - Custom Caption & Buttons.
@@ -29,7 +31,9 @@ messages in bulk or let it auto forward every new post the moment it is publishe
  
  - Custom Forward Tags.
  - Skip Specific Messages.
- - Forward Only The Latest N Messages.
+ - Copy Mode Or Forward Tag Mode.
+ - Per Rule Pause / Resume / Delete.
+ - Automatic Resume After A Bot Restart.
  - Cancel Running Forward Tasks.
  - Protected Message Support.
  - Userbot/Pyrogram Session Support.
@@ -65,6 +69,9 @@ Set these variables before starting the bot.
 | `SUPPORT_GROUP` | No | Support group link used in buttons |
 | `REPO_URL` | No | Source repository link |
 | `BOT_VERSION` | No | Version label shown in the about page |
+| `AUTOFORWARD_INTERVAL` | No | Seconds between auto forward checks. Default: `30` (minimum `10`) |
+| `AUTOFORWARD_BATCH` | No | Messages per Telegram request. Default: `100` (max `200`) |
+| `AUTOFORWARD_MAX_PER_CYCLE` | No | Backlog drained per check, so a long downtime never floods the target. Default: `300` |
 
 <hr>
 
@@ -141,7 +148,8 @@ python3 main.py
 
 ```
 start - Start the bot.
-forward - Forward messages.
+forward - Forward messages (optionally only the latest N).
+autoforward - Create and manage auto forward rules.
 unequify - Delete dublicate files in channel.
 settings - Configure your settings.
 cancel - Cancel ongoing forwarding.
@@ -150,6 +158,28 @@ resetall - To reset all user settings. (Admin Only)
 broadcast - To broadcast any message to all users (Admin Only)
 restart - Restart the bot (Admin Only)
 ```
+
+# AUTO FORWARD
+
+`/autoforward` mirrors a channel without any manual work:
+
+1. Pick the bot or userbot that should run the rule.
+2. Pick one of your target channels (added in `/settings`).
+3. Send the source channel link, its `@username`, or forward one of its posts.
+4. Choose the delivery mode:
+   - **Copy** - no forward tag, your custom caption and buttons apply.
+   - **Forward** - keeps the original forward tag.
+5. Optionally forward the latest `N` existing messages once (enter `0` for only new posts).
+
+From then on the bot checks the source channel every `AUTOFORWARD_INTERVAL`
+seconds and forwards everything new. Rules survive restarts and can be paused,
+resumed, switched between modes or deleted from the same panel.
+
+Your `/settings` filters (message types, keywords, extensions, file size) and
+protected-content option apply to auto forward as well.
+
+> The selected bot/userbot must be an admin with post permission in the target
+> channel. For private source channels it must be a member of the source too.
 
 ## Developer
 
