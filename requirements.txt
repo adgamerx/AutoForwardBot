@@ -5,6 +5,9 @@ Dnspython
 datetime
 pytz
 
+#----config.py----#
+python-dotenv
+
 #----app.py----#
 Flask
 gunicorn

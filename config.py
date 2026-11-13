@@ -1,5 +1,21 @@
 # Developed by ADx
-from os import environ 
+import os
+from os import environ
+
+# Load a .env file next to this module for local runs. Variables that already
+# exist in the environment take precedence (override=False), so container and
+# platform settings are never replaced by a stray file. python-dotenv is
+# optional: the bot runs fine with plain environment variables.
+ENV_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
+
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    load_dotenv = None
+
+if load_dotenv is not None:
+    load_dotenv(ENV_FILE)
+
 
 def _int_env(name, default):
     try:

@@ -202,8 +202,18 @@ Requires a **userbot** account and admin rights in that channel.
 
 ## Configuration
 
-Environment variables are read by `config.py`. Only the required block matters
-for a working deployment; everything else has a sensible default.
+Everything is configured through environment variables read by `config.py`.
+Start from the template:
+
+```bash
+cp .env.example .env
+```
+
+`.env` is gitignored. The bot loads it automatically at startup (python-dotenv)
+and `docker compose` reads the same file through `env_file`, so one file works
+for local runs and containers. Variables that already exist in the environment
+always win over the file. Only the required block matters for a working
+deployment; everything else has a sensible default.
 
 ### Required
 
@@ -263,7 +273,7 @@ python3 -m venv venv
 source venv/bin/activate
 pip3 install -U -r requirements.txt
 
-# provide the environment variables, then:
+cp .env.example .env    # fill in API_ID, API_HASH, BOT_TOKEN, BOT_OWNER_ID, DATABASE_URI
 python3 main.py
 ```
 
@@ -325,6 +335,7 @@ ADx-AutoForward-Bot/
 ├── translation.py     # every user facing string
 ├── app.py             # Flask keep-alive endpoint
 ├── logging.conf       # console + file logging setup
+├── .env.example       # every supported environment variable, documented
 ├── requirements.txt
 ├── Dockerfile / docker-compose.yml / Procfile / heroku.yml / app.json / start.sh
 └── plugins/
