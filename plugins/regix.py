@@ -290,7 +290,7 @@ async def finish_job(client, user, m, sts):
         pass
     except Exception:
         pass
-    await send(client, user, "<b>🎉 ғᴏʀᴡᴀʀᴅɪɴɢ ᴄᴏᴍᴘʟᴇᴛᴇᴅ</b>")
+    await send(client, user, "<b>🎉 Forwarding completed</b>")
     await edit(m, 'Completed', "completed", sts)
     await stop(client, user, remove_job=True)
 
@@ -334,15 +334,15 @@ async def forward(bot, msg, m, sts, protect):
      await forward(bot, msg, m, sts, protect)
 
 PROGRESS = f"""
-📈 Percetage: {{0}} %
+📈 Percentage: {{0}} %
 
-♻️ Feched: {{1}}
+♻️ Fetched: {{1}}
 
-♻️ Fowarded: {{2}}
+♻️ Forwarded: {{2}}
 
 ♻️ Remaining: {{3}}
 
-♻️ Stataus: {{4}}
+♻️ Status: {{4}}
 
 ⏳️ ETA: {{5}}
 
@@ -384,7 +384,7 @@ async def edit(msg, title, status, sts):
          InlineKeyboardButton('Updates', url=Config.UPDATES_CHANNEL)]
          )
    else:
-      button.append([InlineKeyboardButton('• ᴄᴀɴᴄᴇʟ', 'terminate_frwd')])
+      button.append([InlineKeyboardButton('• Cancel', 'terminate_frwd')])
    await msg_edit(msg, text, InlineKeyboardMarkup(button))
    
 async def is_cancelled(client, user, msg, sts):

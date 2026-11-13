@@ -442,25 +442,25 @@ async def settings_query(bot, query):
       
 def main_buttons():
   buttons = [[
-       InlineKeyboardButton('🤖 Bᴏᴛs',
+       InlineKeyboardButton('🤖 Bots',
                     callback_data=f'settings#bots'),
-       InlineKeyboardButton('🏷 Cʜᴀɴɴᴇʟs',
+       InlineKeyboardButton('🏷 Channels',
                     callback_data=f'settings#channels')
        ],[
-       InlineKeyboardButton('🖋️ Cᴀᴘᴛɪᴏɴ',
+       InlineKeyboardButton('🖋️ Caption',
                     callback_data=f'settings#caption'),
-       InlineKeyboardButton('🗃 MᴏɴɢᴏDB',
+       InlineKeyboardButton('🗃 MongoDB',
                     callback_data=f'settings#database')
        ],[
-       InlineKeyboardButton('🕵‍♀ Fɪʟᴛᴇʀs 🕵‍♀',
+       InlineKeyboardButton('🕵‍♀ Filters 🕵‍♀',
                     callback_data=f'settings#filters'),
-       InlineKeyboardButton('⏹ Bᴜᴛᴛᴏɴ',
+       InlineKeyboardButton('⏹ Button',
                     callback_data=f'settings#button')
        ],[
-       InlineKeyboardButton('Exᴛʀᴀ Sᴇᴛᴛɪɴɢs 🧪',
+       InlineKeyboardButton('Extra Settings 🧪',
                     callback_data='settings#nextfilters')
        ],[      
-       InlineKeyboardButton('⫷ Bᴀᴄᴋ', callback_data='back')
+       InlineKeyboardButton('⫷ Back', callback_data='back')
        ]]
   return InlineKeyboardMarkup(buttons)
 

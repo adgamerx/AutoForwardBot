@@ -3,14 +3,14 @@ from config import Config
 BOT_LINK = f"https://t.me/{Config.BOT_USERNAME}"
 
 class Translation(object):
-  START_TXT = f"""<b>Hᴇʏ {{}},{{}}</b>
+  START_TXT = f"""<b>Hey {{}}, {{}}</b>
 
-◈ I Aᴍ A Aᴅᴠᴀɴᴄᴇᴅ Aᴜᴛᴏ Fᴏʀᴡᴀʀᴅ Bᴏᴛ.
-◈ I Cᴀɴ Fᴏʀᴡᴀʀᴅ Aʟʟ Mᴇꜱꜱᴀɢᴇ Fʀᴏᴍ Oɴᴇ Cʜᴀɴɴᴇʟ Tᴏ Aɴᴏᴛʜᴇʀ Cʜᴀɴɴᴇʟ.
-◈ Uꜱᴇ Aᴜᴛᴏ Fᴏʀᴡᴀʀᴅ Tᴏ Kᴇᴇᴘ A Cʜᴀɴɴᴇʟ Iɴ Sʏɴᴄ 24x7.
-◈ Cʟɪᴄᴋ Hᴇʟᴘ Bᴜᴛᴛᴏɴ Tᴏ Kɴᴏᴡ Mᴏʀᴇ Aʙᴏᴜᴛ Mᴇ.
+◈ I am an advanced auto forward bot.
+◈ I can forward all messages from one channel to another channel.
+◈ Use auto forward to keep a channel in sync 24x7.
+◈ Click the help button to know more about me.
 
-<blockquote>ᴍᴀɪɴᴛᴀɪɴᴇᴅ ʙʏ: <a href='{Config.UPDATES_CHANNEL}'>{Config.DEVELOPER_NAME}</a></blockquote></b>"""
+<blockquote>Maintained by: <a href='{Config.UPDATES_CHANNEL}'>{Config.DEVELOPER_NAME}</a></blockquote></b>"""
 
 
   HELP_TXT = """<b><u>🛠️ HELP</b></u>
@@ -39,83 +39,85 @@ class Translation(object):
   HOW_USE_TXT = """<b><u>⚠️ Before Forwarding:</b></u>
   
 <b>► __Add A Bot Or Userbot__ 
-► __Add Atleast One To Channel (Your Bot/Userbot Must Be Admin In There)
+► __Add At Least One Channel (Your Bot/Userbot Must Be Admin In There)
 ► __You Can Add Chats Or Bots By Using /settings__ 
 ► __if the **From Channel** is private your userbot must be member in there or your bot must need admin permission in there also__ 
 ► __Then use /forward to forward messages or /autoforward to forward every new post automatically__</b>"""
   
   ABOUT_TXT = f"""<b>
 ╭───────────⍟
-├◈ ᴍy ɴᴀᴍᴇ : <a href={BOT_LINK}>{Config.BOT_NAME}</a>
-├◈ Dᴇᴠᴇʟᴏᴩᴇʀ : <a href={Config.SUPPORT_GROUP}>{Config.DEVELOPER_NAME}</a> 
-├◈ Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ: <a href={Config.UPDATES_CHANNEL}>{Config.DEVELOPER_NAME} Updates</a>   
-├◈ Lɪʙʀᴀʀy : <a href=https://github.com/pyrogram>Pyʀᴏɢʀᴀᴍ</a>
-├◈ Lᴀɴɢᴜᴀɢᴇ: <a href=https://www.python.org/>Pʏᴛʜᴏɴ 𝟹</a>
-├◈ Dᴀᴛᴀ Bᴀꜱᴇ: <a href=https://cloud.mongodb.com/>Mᴏɴɢᴏ DB</a>
-├◈ Bot Vᴇʀꜱɪᴏɴ: <a href={Config.REPO_URL}>{Config.VERSION}</a>
-├◈ Bᴏᴛ Sᴏᴜʀᴄᴇ: <a href={Config.REPO_URL}>{Config.BOT_NAME}</a>
+├◈ My name : <a href={BOT_LINK}>{Config.BOT_NAME}</a>
+├◈ Developer : <a href={Config.SUPPORT_GROUP}>{Config.DEVELOPER_NAME}</a> 
+├◈ Updates channel: <a href={Config.UPDATES_CHANNEL}>{Config.DEVELOPER_NAME} Updates</a>   
+├◈ Library : <a href=https://github.com/pyrogram>Pyrogram</a>
+├◈ Language: <a href=https://www.python.org/>Python 3</a>
+├◈ Database: <a href=https://cloud.mongodb.com/>MongoDB</a>
+├◈ Bot version: <a href={Config.REPO_URL}>{Config.VERSION}</a>
+├◈ Bot source: <a href={Config.REPO_URL}>{Config.BOT_NAME}</a>
 ╰───────────────⍟</b>"""
   
   STATUS_TXT = """<b><u>Bot Status</u>
 
-👨 ᴜsᴇʀs  : {}
+👨 Users     : {}
 
-🤖 ʙᴏᴛs : {}
+🤖 Bots      : {}
 
-📣 ᴄʜᴀɴɴᴇʟ  : {} 
+📣 Channels  : {}
 </b>""" 
   
   FROM_MSG = "<b>❪ SET SOURCE CHAT ❫\n\nForward the last message or last message link of source chat.\n/cancel - cancel this process</b>"
   TO_MSG = "<b>❪ CHOOSE TARGET CHAT ❫\n\nChoose your target chat from the given buttons.\n/cancel - Cancel this process</b>"
-  SKIP_MSG = "<b>❪ SET MESSAGE SKIPING NUMBER ❫</b>\n\n<b>Skip the message as much as you enter the number and the rest of the message will be forwarded\nDefault Skip Number =</b> <code>0</code>\n<code>eg: You enter 0 = 0 message skiped\n You enter 5 = 5 message skiped</code>\n/cancel <b>- cancel this process</b>"
+  SKIP_MSG = "<b>❪ SET MESSAGE SKIPPING NUMBER ❫</b>\n\n<b>Skip the message as much as you enter the number and the rest of the message will be forwarded\nDefault Skip Number =</b> <code>0</code>\n<code>eg: You enter 0 = 0 messages skipped\n You enter 5 = 5 messages skipped</code>\n/cancel <b>- cancel this process</b>"
   COUNT_MSG = "<b>❪ HOW MANY LATEST MESSAGES ❫</b>\n\n<b>Send how many of the newest messages you want to forward.\nOnly those messages are forwarded, older ones are left behind.\nDefault =</b> <code>0</code>\n<code>eg: You enter 0 = all messages after the skip number\n You enter 10 = only the latest 10 messages</code>\n/cancel <b>- cancel this process</b>"
-  CANCEL = "<b>Process Cancelled Succefully !</b>"
-  FORWARDING_STARTED = f"<b>🚥 ғᴏʀᴡᴀʀᴅɪɴɢ sᴛᴀʀᴛᴇᴅ via</b> <b><a href=\"{BOT_LINK}\">{Config.BOT_NAME}</a></b>"
+  CANCEL = "<b>Process cancelled successfully!</b>"
+  FORWARDING_STARTED = f"<b>🚥 Forwarding started via</b> <b><a href=\"{BOT_LINK}\">{Config.BOT_NAME}</a></b>"
   BOT_DETAILS = "<b><u>📄 BOT DETAILS</b></u>\n\n<b>➣ NAME:</b> <code>{}</code>\n<b>➣ BOT ID:</b> <code>{}</code>\n<b>➣ USERNAME:</b> @{}"
   USER_DETAILS = "<b><u>📄 USERBOT DETAILS</b></u>\n\n<b>➣ NAME:</b> <code>{}</code>\n<b>➣ USER ID:</b> <code>{}</code>\n<b>➣ USERNAME:</b> @{}"  
          
   TEXT = """<b>╭────❰ <u>Forwarded Status</u> ❱────❍
 ┃
-┣⊸<b>🕵 ғᴇᴄʜᴇᴅ ᴍsɢ :</b> <code>{}</code>
-┣⊸<b>✅ sᴜᴄᴄᴇғᴜʟʟʏ ғᴡᴅ :</b> <code>{}</code>
-┣⊸<b>👥 ᴅᴜᴘʟɪᴄᴀᴛᴇ ᴍsɢ :</b> <code>{}</code>
-┣⊸<b>🗑️ ᴅᴇʟᴇᴛᴇᴅ ᴍsɢ :</b> <code>{}</code>
-┣⊸<b>🪆 sᴋɪᴘᴘᴇᴅ ᴍsɢ :</b> <code>{}</code>
-┣⊸<b>📊 sᴛᴀᴛᴜs  :</b> <code>{}</code>
-┣⊸<b>⏳ ᴘʀᴏɢʀᴇss  :</b> <code>{}</code> %
-┣⊸<b>⏰ ᴇᴛᴀ :</b> <code>{}</code>
+┣⊸<b>🕵 Fetched msg :</b> <code>{}</code>
+┣⊸<b>✅ Successfully fwd :</b> <code>{}</code>
+┣⊸<b>👥 Duplicate msg :</b> <code>{}</code>
+┣⊸<b>🗑️ Deleted msg :</b> <code>{}</code>
+┣⊸<b>🪆 Skipped msg :</b> <code>{}</code>
+┣⊸<b>📊 Status  :</b> <code>{}</code>
+┣⊸<b>⏳ Progress  :</b> <code>{}</code> %
+┣⊸<b>⏰ ETA :</b> <code>{}</code>
 ┃
 ╰────⌊ <b>{}</b> ⌉───❍</b>"""
 
   TEXT1 = """
-╔════❰ ғᴏʀᴡᴀʀᴅ sᴛᴀᴛᴜs ❱➠
+╔════❰ Forward status ❱➠
 ║╭━━━━━━━━━━━━━━━➣
 ║┃
-║┣⪼**🕵 ғᴇᴄʜᴇᴅ ᴍsɢ :** `{}`
+║┣⪼**🕵 Fetched msg :** `{}`
 ║┃
-║┣⪼**✅ sᴜᴄᴄᴇғᴜʟʟʏ ғᴡᴅ :** `{}`
+║┣⪼**✅ Successfully fwd :** `{}`
 ║┃
-║┣⪼**👥 ᴅᴜᴘʟɪᴄᴀᴛᴇ ᴍsɢ :** `{}`
+║┣⪼**👥 Duplicate msg :** `{}`
 ║┃
-║┣⪼**🗑️ ᴅᴇʟᴇᴛᴇᴅ ᴍsɢ :** `{}`
+║┣⪼**🗑️ Deleted msg :** `{}`
 ║┃
-║┣⪼**🪆 sᴋɪᴘᴘᴇᴅ ᴍsɢ :** `{}`
+║┣⪼**🪆 Skipped msg :** `{}`
 ║┃
-║┣⪼**📊 sᴛᴀᴛᴜs  :** `{}`
+║┣⪼**📊 Status  :** `{}`
 ║┃
-║┣⪼**⏳ ᴘʀᴏɢʀᴇss :** `{}`
+║┣⪼**⏳ Progress :** `{}`
 ║┃
-║┣⪼**⏰ ᴇᴛᴀ :** `{}`
+║┣⪼**⏰ ETA :** `{}`
 ║┃
 ║╰━━━━━━━━━━━━━━━➣ 
 ╚════❰ **{}** ❱➠ """
 
   DUPLICATE_TEXT = """
-╔════❰ ᴜɴᴇǫᴜɪғʏ sᴛᴀᴛᴜs ❱
+╔════❰ Unequify status ❱
 ║╭━━━━━━━━━━━━━━━➣
-║┣⪼ <b>ғᴇᴛᴄʜᴇᴅ ғɪʟᴇs:</b> <code>{}</code>
+║┣⪼ <b>Fetched files:</b> <code>{}</code>
 ║┃
-║┣⪼ <b>ᴅᴜᴘʟɪᴄᴀᴛᴇ ᴅᴇʟᴇᴛᴇᴅ:</b> <code>{}</code> 
+║┣⪼ <b>Duplicate deleted:</b> <code>{}</code> 
+║┃
+║┣⪼ <b>Status:</b> <code>{}</code>
 ║╰━━━━━━━━━━━━━━━➣
 ╚════❰ ❱
 """

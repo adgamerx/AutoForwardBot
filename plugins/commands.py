@@ -12,13 +12,13 @@ from pyrogram.types import *
 TIMEZONE = "Asia/Kolkata"
 
 main_buttons = [[
-        InlineKeyboardButton('🦋 ᴜᴘᴅᴀᴛᴇs ', url=Config.UPDATES_CHANNEL),
-        InlineKeyboardButton(' sᴜᴘᴘᴏʀᴛ ✨', url=Config.SUPPORT_GROUP)
+        InlineKeyboardButton('🦋 Updates', url=Config.UPDATES_CHANNEL),
+        InlineKeyboardButton('Support ✨', url=Config.SUPPORT_GROUP)
         ],[
-        InlineKeyboardButton('🛠️ ʜᴇʟᴘ', callback_data='help'),
-        InlineKeyboardButton(' ᴀʙᴏᴜᴛ 😎', callback_data='about')
+        InlineKeyboardButton('🛠️ Help', callback_data='help'),
+        InlineKeyboardButton('About 😎', callback_data='about')
         ],[
-        InlineKeyboardButton('🛠️ sᴇᴛᴛɪɴɢs ⚙️', callback_data='settings#main')
+        InlineKeyboardButton('🛠️ Settings ⚙️', callback_data='settings#main')
         ]]
 #===================Start Function===================#
 
@@ -39,7 +39,7 @@ async def start(client, message):
             # Send a message asking the user to join the channel
             join_button = [
                 [InlineKeyboardButton("Join Channel", url=f"{Config.FORCE_SUB_CHANNEL}")],
-                [InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{client.username}?start=start")]
+                [InlineKeyboardButton("↻ Try Again", url=f"https://t.me/{client.username}?start=start")]
             ]
             await client.send_message(
                 chat_id=message.chat.id,
@@ -54,20 +54,20 @@ async def start(client, message):
         if Config.LOG_CHANNEL:
             await client.send_message(
                 chat_id=Config.LOG_CHANNEL,
-                text=f"#NewUser\n\nIᴅ - {user.id}\nNᴀᴍᴇ - {message.from_user.mention}"
+                text=f"#NewUser\n\nID - {user.id}\nName - {message.from_user.mention}"
             )
 
     reply_markup = InlineKeyboardMarkup(main_buttons)
     current_time = datetime.now(pytz.timezone(TIMEZONE))
     curr_time = current_time.hour        
     if curr_time < 12:
-        gtxt = "ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ 🌞" 
+        gtxt = "Good morning 🌞" 
     elif curr_time < 17:
-        gtxt = "ɢᴏᴏᴅ ᴀғᴛᴇʀɴᴏᴏɴ 🌗" 
+        gtxt = "Good afternoon 🌗" 
     elif curr_time < 21:
-        gtxt = "ɢᴏᴏᴅ ᴇᴠᴇɴɪɴɢ 🌘"
+        gtxt = "Good evening 🌘"
     else:
-        gtxt = "ɢᴏᴏᴅ ɴɪɢʜᴛ 🌑"
+        gtxt = "Good night 🌑"
     await client.send_photo(
         chat_id=message.chat.id,
         photo=Config.PICS,
@@ -94,12 +94,12 @@ async def helpcb(bot, query):
         text=Translation.HELP_TXT,
         reply_markup=InlineKeyboardMarkup(
             [[
-            InlineKeyboardButton('🛠️ ʜᴏᴡ ᴛᴏ ᴜsᴇ ᴍᴇ 🛠️', callback_data='how_to_use')
+            InlineKeyboardButton('🛠️ How to use me 🛠️', callback_data='how_to_use')
             ],[
-            InlineKeyboardButton('⚙️ sᴇᴛᴛɪɴɢs ⚙️', callback_data='settings#main'),
-            InlineKeyboardButton('📊 sᴛᴀᴛᴜs 📊', callback_data='status')
+            InlineKeyboardButton('⚙️ Settings ⚙️', callback_data='settings#main'),
+            InlineKeyboardButton('📊 Status 📊', callback_data='status')
             ],[
-            InlineKeyboardButton('⛔ ʙᴀᴄᴋ', callback_data='back')
+            InlineKeyboardButton('⛔ Back', callback_data='back')
             ]]
         ))
 
@@ -117,13 +117,13 @@ async def back(bot, query):
     current_time = datetime.now(pytz.timezone(TIMEZONE))
     curr_time = current_time.hour        
     if curr_time < 12:
-        gtxt = "ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ 🌞" 
+        gtxt = "Good morning 🌞" 
     elif curr_time < 17:
-        gtxt = "ɢᴏᴏᴅ ᴀғᴛᴇʀɴᴏᴏɴ 🌗" 
+        gtxt = "Good afternoon 🌗" 
     elif curr_time < 21:
-        gtxt = "ɢᴏᴏᴅ ᴇᴠᴇɴɪɴɢ 🌘"
+        gtxt = "Good evening 🌘"
     else:
-        gtxt = "ɢᴏᴏᴅ ɴɪɢʜᴛ 🌑"
+        gtxt = "Good night 🌑"
     await query.message.edit_media(
         media=InputMediaPhoto(
         media=Config.PICS,

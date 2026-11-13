@@ -102,7 +102,7 @@ class CLIENT:
     await bot.send_message(user_id, text=disclaimer_text)
 
     # Ask for the phone number
-    t = "➫ ᴘʟᴇᴀsᴇ sᴇɴᴅ ʏᴏᴜʀ ᴘʜᴏɴᴇ ɴᴜᴍʙᴇʀ ᴡɪᴛʜ ᴄᴏᴜɴᴛʀʏ ᴄᴏᴅᴇ ғᴏʀ ᴡʜɪᴄʜ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ɢᴇɴᴇʀᴀᴛᴇ sᴇssɪᴏɴ \n➫ ᴇxᴀᴍᴘʟᴇ: +910000000000\n/cancel - ᴛᴏ ᴄᴀɴᴄᴇʟ ᴛʜɪs ᴘʀᴏᴄᴇss"
+    t = "➫ Please send your phone number with country code for which you want to generate a session.\n➫ Example: +910000000000\n/cancel - to cancel this process"
     phone_number_msg = await bot.ask(user_id, t, filters=filters.text)
 
     if phone_number_msg.text and phone_number_msg.text.startswith('/'):
@@ -112,7 +112,7 @@ class CLIENT:
     phone_number = phone_number_msg.text
 
     # Inform the user about sending the OTP
-    await bot.send_message(user_id, "ᴛʀʏɪɴɢ ᴛᴏ sᴇɴᴅ ᴏᴛᴩ ᴀᴛ ᴛʜᴇ ɢɪᴠᴇɴ ɴᴜᴍʙᴇʀ...")
+    await bot.send_message(user_id, "Trying to send OTP at the given number...")
 
     client = Client(name="user", api_id=api_id, api_hash=api_hash, in_memory=True)
     await client.connect()
