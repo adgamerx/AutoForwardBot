@@ -38,6 +38,7 @@ class Config:
     # Auto forward watcher
     AUTOFORWARD_INTERVAL = _int_env("AUTOFORWARD_INTERVAL", "30")  # seconds between checks
     AUTOFORWARD_BATCH = _int_env("AUTOFORWARD_BATCH", "100")  # messages per Telegram call
+    AUTOFORWARD_MAX_PER_CYCLE = _int_env("AUTOFORWARD_MAX_PER_CYCLE", "300")  # backlog drained per check
 
 
 class temp(object): 

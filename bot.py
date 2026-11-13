@@ -40,8 +40,19 @@ class Bot(Client):
             await resume_forwardings(self)
         except Exception:
             logging.exception("Unable to restore forwarding jobs")
+        # Restart every auto forward rule that was active before the restart.
+        try:
+            from plugins.autoforward import resume_autoforwards
+            await resume_autoforwards(self)
+        except Exception:
+            logging.exception("Unable to restore auto forward rules")
 
     async def stop(self, *args):
+        try:
+            from plugins.autoforward import forwarder
+            await forwarder.stop_all()
+        except Exception:
+            logging.exception("Unable to stop auto forward rules")
         msg = f"@{self.username} stopped. Bye."
         await super().stop()
         logging.info(msg)
