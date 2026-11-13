@@ -45,9 +45,14 @@ def filter_options(configs):
     return {'keywords': keywords, 'extensions': extensions, 'media_size': media_size}
 
 
+def is_missing(message):
+    """Telegram returns empty messages for ids that do not exist."""
+    return message is None or getattr(message, 'empty', False)
+
+
 def is_skippable(message):
-    """Deleted / service messages cannot be forwarded."""
-    return message is None or getattr(message, 'empty', False) or getattr(message, 'service', False)
+    """Missing and service messages cannot be forwarded."""
+    return is_missing(message) or getattr(message, 'service', False)
 
 
 class AutoForwarder:
@@ -158,9 +163,15 @@ class AutoForwarder:
         last_id = int(rule.get('last_id') or 0)
         state = {}
         if not last_id:
-            latest = await self._latest_id(client, rule['from_chat'])
-            if latest:
-                state['last_id'] = last_id = latest
+            try:
+                last_id = await self._latest_id(client, rule['from_chat'])
+            except Exception as exc:
+                raise RuntimeError(
+                    'Could not read the source channel history. Add the account as an admin there, '
+                    'or create the rule from a message link / forwarded post so the start point is known.'
+                ) from exc
+            if last_id:
+                state['last_id'] = last_id
         if pending and last_id and not rule.get('backfill_start'):
             state['backfill_start'] = max(1, last_id - pending + 1)
         if not state:
@@ -207,14 +218,25 @@ class AutoForwarder:
         await db.update_autoforward(rule['id'], {'backfill_start': None, 'backfill': 0})
 
     async def _poll_once(self, rule, client):
-        latest = await self._latest_id(client, rule['from_chat'])
-        if not latest:
-            return
         last_id = int(rule.get('last_id') or 0)
-        if latest <= last_id:
-            await db.update_autoforward(rule['id'], {'last_run': time.time()})
-            return
-        end = min(latest, last_id + self.max_per_cycle)
+        try:
+            latest = await self._latest_id(client, rule['from_chat'])
+        except Exception:
+            # History can be unreadable (public source where the account is not
+            # an admin). Probe the next message ids directly instead.
+            latest = 0
+
+        if latest:
+            if latest <= last_id:
+                await db.update_autoforward(rule['id'], {'last_run': time.time()})
+                return
+            end = min(latest, last_id + self.max_per_cycle)
+        else:
+            if not await self._message_exists(client, rule['from_chat'], last_id + 1):
+                await db.update_autoforward(rule['id'], {'last_run': time.time()})
+                return
+            end = last_id + self.batch
+
         await self._forward_range(rule, client, last_id + 1, end)
 
     async def _forward_range(self, rule, client, start, end):
@@ -223,6 +245,7 @@ class AutoForwarder:
         options = filter_options(configs)
         button = parse_buttons(configs['button']) if configs.get('button') else None
         totals = {'forwarded': 0, 'filtered': 0, 'failed': 0}
+        last_seen = 0
 
         for batch_start in range(start, end + 1, self.batch):
             batch_end = min(batch_start + self.batch - 1, end)
@@ -230,7 +253,13 @@ class AutoForwarder:
             counters = {'forwarded': 0, 'filtered': 0, 'failed': 0}
 
             for message in messages:
-                if is_skippable(message):
+                if is_missing(message):
+                    continue
+                # Remember every id that exists, including service and filtered
+                # messages, so they are never read twice and last_id never jumps
+                # over a gap that was simply not published yet.
+                last_seen = max(last_seen, int(message.id))
+                if getattr(message, 'service', False):
                     continue
                 if not should_forward_message(message, disabled, **options):
                     counters['filtered'] += 1
@@ -252,12 +281,11 @@ class AutoForwarder:
 
             for key in totals:
                 totals[key] += counters[key]
+            state = {'last_run': time.time(), 'last_error': None}
+            if last_seen:
+                state['last_id'] = last_seen
             # Persist per batch so a restart repeats at most one batch.
-            await db.increment_autoforward(rule['id'], counters, {
-                'last_id': batch_end,
-                'last_run': time.time(),
-                'last_error': None,
-            })
+            await db.increment_autoforward(rule['id'], counters, state)
 
         return totals
 
@@ -298,29 +326,30 @@ class AutoForwarder:
     async def _latest_id(self, client, chat):
         """Id of the newest message in the source chat.
 
-        get_chat_history always yields newest first and exists in every
-        Pyrogram generation; get_messages(chat, 1) would mean "message id 1".
+        get_chat_history always yields newest first; get_messages(chat, 1) would
+        mean "message id 1", and get_messages without ids raises ValueError.
         """
-        try:
-            message = await self._first_history_message(client, chat)
-        except Exception:
-            # Some client versions only expose history through get_messages.
-            messages = await self._get_messages(client, chat, None)
-            message = messages[0] if messages else None
-        if is_skippable(message):
+        message = await self._newest_message(client, chat)
+        if is_missing(message):
             return 0
         return int(message.id)
 
-    async def _first_history_message(self, client, chat):
+    async def _newest_message(self, client, chat):
         history = client.get_chat_history(chat, limit=1)
+        if not hasattr(history, '__aiter__'):
+            # Client versions that return a coroutine resolving to a generator.
+            history = await history
         if hasattr(history, '__aiter__'):
             async for message in history:
                 return message
             return None
-        result = await history
-        if isinstance(result, (list, tuple)):
-            return result[0] if result else None
-        return result
+        if isinstance(history, (list, tuple)):
+            return history[0] if history else None
+        return history
+
+    async def _message_exists(self, client, chat, message_id):
+        messages = await self._get_messages(client, chat, message_id)
+        return not is_missing(messages[0] if messages else None)
 
 
 forwarder = AutoForwarder()
