@@ -63,6 +63,8 @@ class Translation(object):
 🤖 Bots      : {}
 
 📣 Channels  : {}
+
+🔄 Active forwardings : {}
 </b>""" 
   
   FROM_MSG = "<b>❪ SET SOURCE CHAT ❫\n\nForward the last message or last message link of source chat.\n/cancel - cancel this process</b>"

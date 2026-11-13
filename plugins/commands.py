@@ -144,7 +144,7 @@ async def status(bot, query):
     users_count, bots_count = await db.total_users_bots_count()
     total_channels = await db.total_channels()
     await query.message.edit_text(
-        text=Translation.STATUS_TXT.format(users_count, bots_count, temp.forwardings, total_channels, temp.BANNED_USERS ),
+        text=Translation.STATUS_TXT.format(users_count, bots_count, total_channels, temp.forwardings),
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('⛔ Back', callback_data='help')]]),
         parse_mode=enums.ParseMode.HTML,
         disable_web_page_preview=True,
@@ -155,5 +155,5 @@ async def stats(client, message):
     total_channels = await db.total_channels()
     await client.send_message(
         chat_id=message.chat.id,
-        text=Translation.STATUS_TXT.format(users_count, bots_count, temp.forwardings, total_channels, temp.BANNED_USERS )
+        text=Translation.STATUS_TXT.format(users_count, bots_count, total_channels, temp.forwardings)
     )

@@ -84,7 +84,11 @@ async def unequify(client, message):
                 await sts.edit(Translation.DUPLICATE_TEXT.format(total, deleted, "Cancelled"), reply_markup=COMPLETED_BTN)
                 return await bot.stop()
             file = message.document
-            file_id = unpack_new_file_id(file.file_id)
+            if not file:
+                continue
+            # file_unique_id is stable for the same file across bots and
+            # sessions, which is exactly what duplicate detection needs.
+            file_id = getattr(file, 'file_unique_id', None) or file.file_id
             if file_id in MESSAGES:
                 DUPLICATE.append(message.id)
             else:

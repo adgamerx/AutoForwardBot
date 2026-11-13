@@ -167,14 +167,15 @@ wrong permissions) the bot tells you in chat and shows the error on the rule.
 
 ### `/unequify`
 
-Deletes duplicate documents inside a channel. Requires a **userbot** account and
-admin rights in that channel.
+Deletes duplicate documents inside a channel, using Telegram's
+`file_unique_id` so the same file is recognised across re-uploads.
+Requires a **userbot** account and admin rights in that channel.
 
 ### Admin commands
 
 | Command | Description |
 |---|---|
-| `/stats` | Users, accounts and activity counters. |
+| `/stats` | Users, accounts, channels and running forward jobs. |
 | `/broadcast` | Reply to any message to send it to every bot user. |
 | `/resetall` | Reset the settings of every user. |
 | `/restart` | Restart the bot process. |
