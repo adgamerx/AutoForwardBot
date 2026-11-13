@@ -132,3 +132,44 @@ class Translation(object):
 <i>° If the **SOURCE CHAT** is private your userbot must be member or your bot must be admin in there also</b></i>
 
 <b>If the above is checked then the yes button can be clicked</b>"""
+
+  AUTOFORWARD_TXT = """<b><u>🔁 AUTO FORWARD</u></b>
+
+Every new post in the source channel is forwarded to the target channel automatically.
+
+<b>Rules:</b> <code>{}</code> · <b>Active:</b> <code>{}</code>"""
+
+  AUTOFORWARD_INFO = """<b><u>❔ HOW AUTO FORWARD WORKS</u></b>
+
+<b>1.</b> Pick the bot or userbot that should do the work.
+<b>2.</b> Pick one of your target channels from /settings.
+<b>3.</b> Send the source channel link, its @username, or forward one of its posts.
+<b>4.</b> Choose how new posts are delivered:
+    • <b>Copy</b> - no forward tag, your custom caption and buttons are applied
+    • <b>Forward</b> - keeps the original forward tag
+<b>5.</b> Optionally forward the latest N existing messages once.
+
+After that the bot checks the source channel every few minutes and forwards anything new, even after a restart.
+
+<i>Your /settings filters (message types, keywords, extensions, size) apply to auto forward as well.</i>"""
+
+  AUTOFORWARD_SETUP = "<b>🔁 CREATING A NEW AUTO FORWARD</b>\n\n<i>Send /cancel at any step to stop.</i>"
+  AUTOFORWARD_ACCOUNT = "<b>❪ CHOOSE ACCOUNT ❫</b>\n\n<b>Which bot/userbot should run this auto forward?</b>"
+  AUTOFORWARD_TARGET = "<b>❪ CHOOSE TARGET CHAT ❫</b>\n\n<b>Where should new posts be forwarded?</b>\n\n<i>Add more chats in /settings if yours is missing.</i>"
+  AUTOFORWARD_SOURCE = "<b>❪ SET SOURCE CHAT ❫</b>\n\n<b>Forward the last message of the source channel, or send its link / @username.</b>\n/cancel - cancel this process"
+  AUTOFORWARD_MODE = "<b>❪ DELIVERY MODE ❫</b>\n\n<b>🔇 Copy</b> - no forward tag, your custom caption/buttons apply\n<b>🔁 Forward</b> - keeps the original forward tag"
+  AUTOFORWARD_BACKFILL = "<b>❪ ONE TIME BACKFILL ❫</b>\n\n<b>How many of the latest existing messages should be forwarded once?</b>\n\nSend <code>0</code> to start from the newest post only."
+
+  AUTOFORWARD_NO_SOURCE = "<b>Invalid source chat.</b>\n\nForward one of its posts or send a t.me link / @username."
+  AUTOFORWARD_NO_ACCOUNTS = "<b>You haven't added any bot or userbot yet.</b>\n\nAdd one in /settings first, then create an auto forward."
+  AUTOFORWARD_NO_CHANNELS = "<b>You haven't added a target channel yet.</b>\n\nAdd one in /settings → Channels, then create an auto forward."
+  AUTOFORWARD_CREATED = "<b>✅ AUTO FORWARD STARTED</b>\n\n<i>Only posts published from now on are forwarded automatically.</i>"
+
+  AUTOFORWARD_RULE = """<b><u>🔁 AUTO FORWARD #{}</u></b>
+
+<b>➣ Source:</b> {} (<code>{}</code>)
+<b>➣ Target:</b> {} (<code>{}</code>)
+<b>➣ Mode:</b> {}
+<b>➣ Status:</b> {} {}
+<b>➣ Forwarded:</b> <code>{}</code> · <b>Filtered:</b> <code>{}</code> · <b>Failed:</b> <code>{}</code>
+<b>➣ Last check:</b> <code>{}</code>"""
