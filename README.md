@@ -293,11 +293,14 @@ Or with the included compose file:
 docker compose up -d --build
 ```
 
-`start.sh` clones this repository inside the container; if you want the image to
-run the local checkout instead, override the command:
+The image is self-contained: your checkout is baked in and `.dockerignore`
+keeps `.env`, sessions and caches out of it. Pass the environment at runtime
+(`--env-file .env` or compose `env_file`) rather than shipping the file inside
+the image. To run a different branch, set `BRANCH` — `start.sh` then clones it
+from GitHub instead of using the baked-in code:
 
 ```bash
-docker run -d --env-file .env -v "$PWD":/fwdbot -w /fwdbot adx-auto-forward python3 main.py
+docker run -d --name adx-forward --env-file .env -e BRANCH=main --restart unless-stopped adx-auto-forward
 ```
 
 ### Koyeb

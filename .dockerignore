@@ -1,0 +1,16 @@
+# Never bake credentials or local junk into the image
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+.checks
+.venv
+venv
+__pycache__/
+*.py[cod]
+*.session
+*.session-journal
+logs/
+Dockerfile
+docker-compose.yml
