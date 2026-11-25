@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://files.catbox.moe/uevfz8.jpg" alt="ADx Auto Forward Bot" width="720">
+  <img src="https://images4.alphacoders.com/122/thumb-1920-1224005.jpg" alt="ADx Auto Forward Bot" width="720">
 </div>
 
 <h1 align="center">ADx Auto Forward Bot</h1>
@@ -243,8 +243,8 @@ deployment; everything else has a sensible default.
 | `BOT_NAME` | `ADx Auto Forward Bot` | Name shown across the UI. |
 | `BOT_USERNAME` | `ADxAutoForwardBot` | Bot username without `@`, used in links. |
 | `DEVELOPER_NAME` | `ADx` | Developer name on the about page. |
-| `UPDATES_CHANNEL` | `https://t.me/ADxUpdates` | Updates link used in buttons. |
-| `SUPPORT_GROUP` | `https://t.me/ADxSupport` | Support link used in buttons. |
+| `UPDATES_CHANNEL` | `https://t.me/ADFilmed` | Updates link used in buttons. |
+| `SUPPORT_GROUP` | `https://t.me/ADxChats` | Support link used in buttons. |
 | `REPO_URL` | this repository | Source link on the about page. |
 | `BOT_VERSION` | `V-3.0.0` | Version label on the about page. |
 
@@ -266,8 +266,8 @@ deployment; everything else has a sensible default.
 sudo apt update
 sudo apt install -y git python3 python3-pip python3-venv
 
-git clone https://github.com/adgamerx/ADx-AutoForward-Bot.git
-cd ADx-AutoForward-Bot
+git clone https://github.com/adgamerx/AutoForwardBot.git
+cd AutoForwardBot
 
 python3 -m venv venv
 source venv/bin/activate
@@ -327,7 +327,7 @@ a manifest. They describe a single worker process only.
 ## Project structure
 
 ```text
-ADx-AutoForward-Bot/
+AutoForwardBot/
 ├── main.py            # entry point (python3 main.py)
 ├── bot.py             # Pyrogram client, startup and restore of running jobs
 ├── config.py          # environment variables and runtime state
@@ -378,16 +378,26 @@ ADx-AutoForward-Bot/
 - Only forward content you have the rights to redistribute.
 
 ---
+## Special thanks
 
+- [@pyrofork](https://pypi.org/project/pyrofork/) — a Pyrogram fork with extra features and fixes, including `get_chat_history` and `get_messages` with `reverse=True`.
+
+- [@Telethon](https://pypi.org/project/Telethon/) — for the `file_unique_id` feature used in `/unequify`.
+
+- [@python-telegram-bot](https://pypi.org/project/python-telegram-bot/) — for the `InlineKeyboardButton` and `InlineKeyboardMarkup` classes used in the UI.
+
+- [@Jisshu](https://github.com/Jisshubot/) - for base code and inspiration for the bot.
+
+---
 ## License
 
 Released under the **GNU General Public License v3.0** — see [LICENSE](LICENSE).
 
 <div align="center">
 
-Built with ❤️ by **ADx**
+Built with ❤️ by [**ADx**](https://t.me/adgamerx) ·
 
-<a href="https://t.me/ADxUpdates">Updates channel</a> ·
-<a href="https://t.me/ADxSupport">Support group</a>
+<a href="https://t.me/ADFilmed">Updates channel</a> ·
+<a href="https://t.me/ADxChats">Support group</a>
 
 </div>

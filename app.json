@@ -1,8 +1,8 @@
 
 {
-  "name": "ADx-AutoForward-Bot",
+  "name": "AutoForwardBot",
   "description": "Telegram's Best Smart Plugin File Forward Bot",
-  "logo": "https://files.catbox.moe/uevfz8.jpg",
+  "logo": "https://images4.alphacoders.com/122/thumb-1920-1224005.jpg",
   "stack": "container",
   "keywords": [
     "telegram",
@@ -11,9 +11,9 @@
     "forward",
     "bot"
   ],
-  "success_url": "https://t.me/ADxUpdates",
-  "website": "https://github.com/adgamerx/ADx-AutoForward-Bot",
-  "repository": "https://github.com/adgamerx/ADx-AutoForward-Bot",
+  "success_url": "https://t.me/ADxChats",
+  "website": "https://github.com/adgamerx/AutoForwardBot",
+  "repository": "https://github.com/adgamerx/AutoForwardBot",
   "env": {
     "API_ID": {
       "description": "Get this value from https://my.telegram.org or @UseTGSBot",
@@ -32,12 +32,12 @@
       "value": ""
     },
     "BANNED_USERS": {
-      "description": "If you want to add a caption to the forwarded file, enter it here",
+      "description": "Space separated Telegram ids that may not use the bot",
       "required": false
     },
     "DATABASE_NAME": {
       "description": "MongoDB database name",
-      "value": "document"
+      "value": "Cluster0"
     },
     "DATABASE_URI": {
       "description": "MongoDB connection URI",

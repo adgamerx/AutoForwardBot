@@ -31,7 +31,7 @@ class Config:
     BOT_OWNER_ID = [int(id) for id in environ.get("BOT_OWNER_ID", "").split() if id.strip().isdigit()]
     BOT_SESSION = environ.get("BOT_SESSION", "bot") 
 
-    PICS = (environ.get('PICS', 'https://files.catbox.moe/uevfz8.jpg'))
+    PICS = (environ.get('PICS', 'https://images4.alphacoders.com/122/thumb-1920-1224005.jpg'))
     
     DATABASE_URI = environ.get("DATABASE_URI", "")
     DATABASE_NAME = environ.get("DATABASE_NAME", "Cluster0")
@@ -46,9 +46,9 @@ class Config:
     BOT_NAME = environ.get("BOT_NAME", "ADx Auto Forward Bot")
     BOT_USERNAME = environ.get("BOT_USERNAME", "ADxAutoForwardBot")
     DEVELOPER_NAME = environ.get("DEVELOPER_NAME", "ADx")
-    UPDATES_CHANNEL = environ.get("UPDATES_CHANNEL", "https://t.me/ADxUpdates")
-    SUPPORT_GROUP = environ.get("SUPPORT_GROUP", "https://t.me/ADxSupport")
-    REPO_URL = environ.get("REPO_URL", "https://github.com/adgamerx/ADx-AutoForward-Bot")
+    UPDATES_CHANNEL = environ.get("UPDATES_CHANNEL", "https://t.me/ADFilmed")
+    SUPPORT_GROUP = environ.get("SUPPORT_GROUP", "https://t.me/ADxChats")
+    REPO_URL = environ.get("REPO_URL", "https://github.com/adgamerx/AutoForwardBot")
     VERSION = environ.get("BOT_VERSION", "V-3.0.0")
 
     # Auto forward watcher
