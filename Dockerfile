@@ -4,14 +4,10 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     IN_DOCKER=1
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends git \
-    && rm -rf /var/lib/apt/lists/*
-
 COPY requirements.txt /requirements.txt
 RUN pip3 install --no-cache-dir -U pip \
     && pip3 install --no-cache-dir -U -r requirements.txt
 
 WORKDIR /fwdbot
 COPY . /fwdbot
-CMD ["/bin/bash", "/start.sh"]
+CMD ["/bin/bash", "/fwdbot/start.sh"]

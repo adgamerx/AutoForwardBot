@@ -296,11 +296,15 @@ docker compose up -d --build
 The image is self-contained: your checkout is baked in and `.dockerignore`
 keeps `.env`, sessions and caches out of it. Pass the environment at runtime
 (`--env-file .env` or compose `env_file`) rather than shipping the file inside
-the image. To run a different branch, set `BRANCH` — `start.sh` then clones it
-from GitHub instead of using the baked-in code:
+the image. To run a different revision, rebuild the image from that revision.
+
+Every pushed `v*` tag also triggers the GitHub Actions workflow to publish
+`ghcr.io/adgamerx/autoforwardbot:<tag>` and `:latest`. After the first publish,
+set the package visibility to **Public** in GitHub Packages. Then users can run
+the published image without building from source:
 
 ```bash
-docker run -d --name adx-forward --env-file .env -e BRANCH=main --restart unless-stopped adx-auto-forward
+docker run -d --name adx-forward --env-file .env --restart unless-stopped ghcr.io/adgamerx/autoforwardbot:latest
 ```
 
 ### Koyeb
